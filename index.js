@@ -1,5 +1,6 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
+const shapeClass = require('./lib/shapes.js')
 
 // const svgLayout =` 
 // <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
@@ -36,4 +37,16 @@ inquirer
     ])
     .then((data) => {
         console.log(data)
-    })
+
+        let userSvg;
+
+        if(data.svgShape === 'circle'){
+            userSvg = new shapeClass.circle(data.svgShapeColor, data.svgText, data.svgTextColor);
+        }else if(data.svgShape === 'square'){
+            userSvg = new shapeClass.square(data.svgShapeColor, data.svgText, data.svgTextColor);
+        }else{
+            userSvg = new shapeClass.triangle(data.svgShapeColor, data.svgText, data.svgTextColor);
+        }
+
+        const svgFile = userSvg.render();
+    });
